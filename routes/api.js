@@ -6,13 +6,6 @@ const router = require("express").Router();
 router.get("/api/workouts", function (req, res) {
   Workout.find({})
     .then((workoutDb) => {
-      // workoutDb.forEach(workout => {
-      //   const total = 0;
-      //   workout.excercises.forEach(e => {
-      //     total += e.duration
-      //   })
-      //   workout.totalDuration = total;
-      // })
       res.json(workoutDb);
     })
     .catch((err) => {
