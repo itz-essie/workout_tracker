@@ -6,12 +6,12 @@ const PORT = process.env.PORT || 3006;
 
 const app = express();
 
-app.use(logger("dev"));
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
+
+app.use(logger("dev"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutsdb", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false });
 
