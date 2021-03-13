@@ -54,7 +54,7 @@ router.get("/api/workouts/range", function (req, res) {
       },
     },
   ])
-    .sort({ day: -1 })
+    .sort({ day: -1 }) // possibly change to id
     .limit(7)
     .then((workout) => {
       res.json(workout);
@@ -74,27 +74,7 @@ router.get("/api/workouts/range", function (req, res) {
       },
     },
   ])
-    .sort({ day: -1 })
-    .limit(7)
-    .then((workout) => {
-      res.json(workout);
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
-});
-
-router.get("/api/workouts/range", function (req, res) {
-  Workout.aggregate([
-    {
-      $addFields: {
-        weight: {
-          $sum: "$exercises.duration",
-        },
-      },
-    },
-  ])
-    .sort({ day: -1 })
+    .sort({_id: -1})
     .limit(7)
     .then((workout) => {
       res.json(workout);
