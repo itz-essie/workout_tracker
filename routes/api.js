@@ -13,8 +13,23 @@ router.get("/api/workouts", function (req, res) {
     });
 });
 
+// router.get("/api/workouts", function (req, res) {
+//   Workout.aggregate({
+//     $addFields: {
+//       totalDuration: {
+//         $sum: "exercises.duration",
+//       },
+//     }
+//   })
+//     .then((workoutDb) => {
+//       res.json(workoutDb);
+//     })
+//     .catch((err) => {
+//       res.json(err);
+//     });
+// });
+
 // route to add a workout to tracker
-//REVIEW code!//
 router.put("/api/workouts/:id", function (req, res) {
   Workout.findOneAndUpdate(
     { _id: req.params.id },
