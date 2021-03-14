@@ -4,7 +4,13 @@ const router = require("express").Router();
 //display all workouts
 //passsing 2 parameters in the function call, 1st is an empty object and 2nd is the call back function
 router.get("/api/workouts", function (req, res) {
-  Workout.find({})
+  Workout.aggregate({
+    $addFields: {
+      totalDuration: {
+        $sum: "exercises.duration",
+      },
+    }
+  })
     .then((workoutDb) => {
       res.json(workoutDb);
     })
@@ -12,22 +18,6 @@ router.get("/api/workouts", function (req, res) {
       res.json(err);
     });
 });
-
-// router.get("/api/workouts", function (req, res) {
-//   Workout.aggregate({
-//     $addFields: {
-//       totalDuration: {
-//         $sum: "exercises.duration",
-//       },
-//     }
-//   })
-//     .then((workoutDb) => {
-//       res.json(workoutDb);
-//     })
-//     .catch((err) => {
-//       res.json(err);
-//     });
-// });
 
 // route to add a workout to tracker
 router.put("/api/workouts/:id", function (req, res) {
